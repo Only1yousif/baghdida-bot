@@ -163,7 +163,7 @@ def health_check():
 def set_webhook_route():
     """
     زيارة هذا المسار مرة واحدة بعد النشر لتفعيل الـ Webhook تلقائياً.
-    مثال: https://your-app.onrender.com/set_webhook
+    مثال: https://baghdida-bot.onrender.com/set_webhook
     """
     base_url = os.environ["PUBLIC_URL"].rstrip("/")
     webhook_url = f"{base_url}/webhook/{WEBHOOK_SECRET_PATH}"
