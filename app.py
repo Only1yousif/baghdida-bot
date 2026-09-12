@@ -29,7 +29,16 @@ ADMIN_IDS = {
     int(x.strip()) for x in os.environ.get("ADMIN_IDS", "").split(",") if x.strip()
 }
 
-bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
+class LoggingExceptionHandler(telebot.ExceptionHandler):
+    """
+    يمنع telebot من إخفاء الأخطاء بصمت، ويطبعها كاملة (Traceback) بالـ Logs.
+    """
+    def handle(self, exception):
+        logger.exception("Unhandled exception inside a message handler: %s", exception)
+        return True
+
+
+bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML", exception_handler=LoggingExceptionHandler())
 app = Flask(__name__)
 
 
